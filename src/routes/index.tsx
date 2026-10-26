@@ -28,7 +28,7 @@ function Overview() {
 
   return (
     <>
-      <PageHeader eyebrow="Overview" title="India automotive life cycle assessment workspace">
+      <PageHeader eyebrow="India automotive LCA workspace" title="GreenAuto Lens">
         GreenAuto Lens organises lifecycle environmental factors, their evidence, and vehicle-level GWP assessments.
         This is a prototype demonstrator — not a verified or third-party-reviewed LCA tool.
       </PageHeader>
@@ -46,8 +46,8 @@ function Overview() {
           <ul className="space-y-3">
             {statuses.map((s) => (
               <li key={s} className="flex items-center gap-3">
-                <div className="w-28"><StatusBadge status={s} /></div>
-                <div className="h-2 flex-1 rounded-full bg-muted">
+                <div className="w-28 shrink-0"><StatusBadge status={s} /></div>
+                <div aria-hidden="true" className="h-2 flex-1 rounded-full bg-muted">
                   <div className="h-2 rounded-full bg-primary" style={{ width: `${(count(s) / FACTORS.length) * 100}%` }} />
                 </div>
                 <span className="tabular w-8 text-right font-mono text-sm">{count(s)}</span>
