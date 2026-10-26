@@ -11,7 +11,7 @@ export const DEMO_ASSUMPTIONS = {
   petrolLPerKm: 0.06,
 };
 
-export function bevStages(gridFactor: Factor): StageInput[] {
+export function bevStages(gridFactor: Factor | undefined): StageInput[] {
   const a = DEMO_ASSUMPTIONS;
   const kwh = bevElectricityKwh({ distanceKm: a.lifetimeKm, kwhPerKm: a.bevKwhPerKm, chargingEfficiency: a.chargingEfficiency });
   return [
@@ -34,5 +34,13 @@ export function petrolStages(): StageInput[] {
   ];
 }
 
-export const assessBev = (grid: Factor) => assessVehicle(bevStages(grid));
+export const assessBev = (grid: Factor | undefined) => {
+  const result = assessVehicle(bevStages(grid));
+  if (grid && grid.electricityBasis !== "delivered") {
+    return { ...result, valid: false, complete: false, modelledTotal: null, modelledCount: 0,
+      errors: [...result.errors, "BEV use requires a delivered-electricity factor; generation-side or unspecified basis is incompatible."],
+      stages: result.stages.map((s) => s.status === "modelled" ? { stage: s.stage, status: "not_modelled" as const, reason: "Incompatible electricity basis — assessment invalid." } : s) };
+  }
+  return result;
+};
 export const assessPetrol = () => assessVehicle(petrolStages());
