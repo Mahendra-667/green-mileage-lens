@@ -1,29 +1,38 @@
-# Welcome to your Lovable project
+# GreenAuto Lens
 
-This project was built with [Lovable](https://lovable.dev).
+India-context automotive Life Cycle Assessment prototype for the Techfest IIT Bombay EV Infra & Green Mobility AI Challenge.
 
-## Build with Lovable
+**Prototype demonstrator — not a verified or third-party-reviewed LCA tool. All numeric seed factors are synthetic: Illustrative — not real-world data. No official Indian factors or external citations are provided.**
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Working scope
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- Overview, searchable environmental factors, evidence registry and methodology.
+- Single-activity quantity × factor calculator with exact-unit and GWP100/kg CO2e checks.
+- BEV/petrol stage comparison with explicit partial coverage and nonnumeric missing stages.
+- Local delivered-electricity sensitivity scenario; it does not edit the dataset.
+- Browser-local saved assessments, confirmed deletion, traceable CSV exports and storage-error handling.
+
+## Scientific boundaries
+
+Vehicle assumptions are illustrative: 150,000 km; BEV battery/wheel consumption 0.15 kWh/km, charging efficiency 0.9 and battery capacity 40 kWh; petrol consumption 0.06 L/km. Charging efficiency converts battery-side energy to electricity delivered at the charger exactly once. The grid factor denominator is delivered electricity and excludes vehicle charging losses. Petrol use covers tank-to-wheel tailpipe emissions only, excluding upstream fuel production.
+
+Maintenance and end-of-life factors are unavailable. Subtotals are partial, not cradle-to-grave results. Invalid numbers, duplicate stage definitions, battery double counting and incompatible indicators/units block numeric totals and stage outputs. Missing factors remain missing, not zero.
+
+## Storage and exports
+
+No Cloud database, authentication or multi-user persistence is enabled. Records exist only in this browser/origin and may be lost when browser data is cleared. Blocked, full or corrupt storage shows an error; failed writes do not update the saved-record cache. Corrupt data is not overwritten without confirmed clearing. Other same-origin tabs synchronize via storage events.
+
+Exports include GreenAuto Lens branding, timestamp, input, factor snapshot/value/unit/indicator, evidence status, synthetic-data label, source reference/boundary, assumptions and partial-coverage warnings. Older records remain readable; uncaptured metadata is marked explicitly rather than invented. CSV quotes/newlines are escaped and spreadsheet-formula text is neutralized.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+TanStack Start, React, TypeScript, Tailwind CSS and Vitest.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
+bun run test
+bun run build
 ```
 
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+The Lovable sandbox runs production compilation automatically; do not manually run builds/typechecks there. Project-list name is a Lovable setting, separate from application metadata and domain.

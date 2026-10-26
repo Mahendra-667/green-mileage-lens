@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { FACTORS, getSource } from "@/lib/lca/data";
 import { CATEGORY_LABELS, STATUS_LABELS, type LifecycleCategory } from "@/lib/lca/types";
@@ -38,30 +38,30 @@ function DatabasePage() {
         Factors are expressed as impact per activity unit. Records without a value are shown as missing — never as zero.
       </PageHeader>
       <div className="mb-4 grid gap-2 md:grid-cols-3 lg:grid-cols-6">
-        <input className={`${fieldClass} lg:col-span-1`} placeholder="Search name or ID…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select className={fieldClass} value={f.category} onChange={set("category")}>
+        <input aria-label="Search factors by name or ID" className={`${fieldClass} lg:col-span-1`} placeholder="Search name or ID…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <select aria-label="Filter by category" className={fieldClass} value={f.category} onChange={set("category")}>
           <option value="">All categories</option>
           {(Object.keys(CATEGORY_LABELS) as LifecycleCategory[]).map((c) => <option key={c} value={c}>{CATEGORY_LABELS[c]}</option>)}
         </select>
-        <select className={fieldClass} value={f.geography} onChange={set("geography")}>
+        <select aria-label="Filter by geography" className={fieldClass} value={f.geography} onChange={set("geography")}>
           <option value="">All geographies</option>
           {uniq(FACTORS.map((r) => r.geography)).map((g) => <option key={g}>{g}</option>)}
         </select>
-        <select className={fieldClass} value={f.year} onChange={set("year")}>
+        <select aria-label="Filter by year" className={fieldClass} value={f.year} onChange={set("year")}>
           <option value="">All years</option>
           {uniq(FACTORS.map((r) => r.referenceYear)).map((y) => <option key={y}>{y}</option>)}
         </select>
-        <select className={fieldClass} value={f.indicator} onChange={set("indicator")}>
+        <select aria-label="Filter by indicator" className={fieldClass} value={f.indicator} onChange={set("indicator")}>
           <option value="">All indicators</option>
           <option value="GWP100">GWP100 (kg CO2e)</option>
         </select>
-        <select className={fieldClass} value={f.status} onChange={set("status")}>
+        <select aria-label="Filter by evidence status" className={fieldClass} value={f.status} onChange={set("status")}>
           <option value="">All evidence status</option>
           {Object.entries(STATUS_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
         </select>
       </div>
       <div className="overflow-x-auto rounded-md border border-border bg-card">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[1000px] text-sm">
           <thead className="border-b border-border bg-muted text-left font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
             <tr>{["ID", "Factor", "Category", "Geography", "Year", "Value", "Unit", "Source", "Status"].map((h) => <th key={h} className="px-3 py-2.5 font-medium">{h}</th>)}</tr>
           </thead>
@@ -69,13 +69,13 @@ function DatabasePage() {
             {rows.map((r) => (
               <tr key={r.id} className="align-top">
                 <td className="px-3 py-2.5 font-mono text-xs text-muted-foreground">{r.id}</td>
-                <td className="px-3 py-2.5 text-foreground">{r.name}{r.notes && <p className="text-xs text-muted-foreground">{r.notes}</p>}</td>
+                <td className="px-3 py-2.5 text-foreground">{r.name}<p className="text-xs text-muted-foreground">Illustrative — not real-world data</p>{r.notes && <p className="text-xs text-muted-foreground">{r.notes}</p>}</td>
                 <td className="px-3 py-2.5">{CATEGORY_LABELS[r.category]}</td>
                 <td className="px-3 py-2.5">{r.geography}</td>
                 <td className="px-3 py-2.5 tabular">{r.referenceYear}</td>
                 <td className="px-3 py-2.5 tabular font-mono">{r.value === null ? <span className="text-destructive">missing</span> : fmt(r.value)}</td>
                 <td className="px-3 py-2.5 font-mono text-xs whitespace-nowrap">{r.impactUnit}/{r.perUnit}</td>
-                <td className="px-3 py-2.5 font-mono text-xs">{getSource(r.sourceId)?.id}</td>
+                <td className="px-3 py-2.5 font-mono text-xs"><Link to="/evidence" hash={r.sourceId} className="text-primary underline" title={getSource(r.sourceId)?.title}>{r.sourceId}</Link></td>
                 <td className="px-3 py-2.5"><StatusBadge status={r.status} /></td>
               </tr>
             ))}

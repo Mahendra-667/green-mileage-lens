@@ -31,7 +31,7 @@ export function PageHeader({ eyebrow, title, children }: { eyebrow: string; titl
 
 export function Panel({ title, children, className, action }: { title?: string; children: ReactNode; className?: string; action?: ReactNode }) {
   return (
-    <section className={cn("rounded-md border border-border bg-card p-5", className)}>
+    <section className={cn("min-w-0 border-t border-border py-5", className)}>
       {title && (
         <div className="mb-4 flex items-center justify-between gap-2">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">{title}</h2>
@@ -50,12 +50,12 @@ export function Notice({ tone = "warn", children }: { tone?: "warn" | "error" | 
     info: "border-primary/30 bg-primary/5",
   }[tone];
   return (
-    <div className={cn("flex gap-2 rounded-md border p-3 text-sm text-foreground", cls)}>
+    <div role={tone === "error" ? "alert" : "note"} className={cn("flex min-w-0 gap-2 rounded-md border p-3 text-sm text-foreground", cls)}>
       <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-      <div className="leading-relaxed">{children}</div>
+      <div className="min-w-0 break-words leading-relaxed">{children}</div>
     </div>
   );
 }
 
 export const fieldClass =
-  "h-9 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:ring-2 focus:ring-ring";
+  "min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring";

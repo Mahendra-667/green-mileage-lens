@@ -55,6 +55,8 @@ export interface Factor {
   sourceId: string;
   status: EvidenceStatus;
   notes?: string;
+  /** Electricity factor denominator; charging losses are applied separately once. */
+  electricityBasis?: "delivered" | "generation";
 }
 
 export interface Assessment {
@@ -67,4 +69,8 @@ export interface Assessment {
   sourceTitle: string;
   impact: number;
   impactUnit: string;
+  sourceReference?: string;
+  systemBoundary?: string;
+  assumptions?: string;
+  coverageWarning?: string;
 }
