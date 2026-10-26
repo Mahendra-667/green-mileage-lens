@@ -23,7 +23,7 @@ function MethodologyPage() {
           <Eq>{"Impact_i = Q_i [unit] × EF_i [kg CO2e / unit]"}</Eq>
           <Eq>{"E_grid = distance × consumption / charging_efficiency"}</Eq>
           <Eq>{"Subtotal = Σ Impact_i  (modelled stages only)"}</Eq>
-          <p className="mt-2">Units must match exactly. Missing factors are excluded and flagged, never set to zero.</p>
+          <p className="mt-2">Units must match exactly. Missing factors are excluded and flagged, never set to zero. Duplicate stages, double counting, invalid values or incompatible indicators/impact units block all totals and stage results until corrected. Only GWP100 in kg CO2e is supported.</p>
         </Panel>
         <Panel title="Data quality labels">
           <ul className="space-y-2">
@@ -37,6 +37,7 @@ function MethodologyPage() {
           <ul className="list-disc space-y-1 pl-4">
             <li>All seed factors are illustrative; none are verified Indian data.</li>
             <li>BEV glider factor excludes the battery; battery is counted once to avoid double counting.</li>
+            <li>Consumption is battery/wheel-side (0.15 kWh/km); dividing by charging efficiency (0.9) once gives delivered electricity at the charger. The delivered-electricity factor excludes charging losses; no additional charging-loss multiplier is applied.</li>
             <li>Petrol use phase is tank-to-wheel; upstream fuel production is not included.</li>
             <li>Single national grid factor; no regional, temporal or marginal modelling.</li>
             <li>No battery replacement, degradation or recycling credits.</li>
