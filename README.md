@@ -1,8 +1,8 @@
-# GreenAuto Lens
+# Green Mileage Lens
 
 India-context automotive Life Cycle Assessment prototype for the Techfest IIT Bombay EV Infra & Green Mobility AI Challenge.
 
-**Prototype demonstrator — not a verified or third-party-reviewed LCA tool. All numeric seed factors are synthetic: Illustrative — not real-world data. No official Indian factors or external citations are provided.**
+**Competition prototype — not a verified or third-party-reviewed LCA tool. Numeric seed factors remain synthetic unless explicitly marked otherwise. The CEA Version 22.0 source is registered for review, but its factor is intentionally not used numerically until its metric, denominator and boundary are harmonised with this app.**
 
 ## Working scope
 
@@ -11,6 +11,12 @@ India-context automotive Life Cycle Assessment prototype for the Techfest IIT Bo
 - BEV/petrol stage comparison with explicit partial coverage and nonnumeric missing stages.
 - Local delivered-electricity sensitivity scenario; it does not edit the dataset.
 - Browser-local saved assessments, confirmed deletion, traceable CSV exports and storage-error handling.
+
+## Evidence status and source handling
+
+- The CEA's official [CDM CO₂ Baseline Database, Version 22.0](https://cea.nic.in/cdm-co2-baseline-database/?lang=en) is registered as a `needs_review` source. The database is a CO₂ baseline resource; do not silently treat a CEA CO₂ factor as GWP100 in kg CO₂e/kWh.
+- The electricity factor `0.7 kg CO₂e/kWh`, material factors, battery factor and vehicle manufacturing factors are illustrative/demo values, not verified Indian measurements. Keep them labelled illustrative in UI and exports.
+- The app must not imply that registering a source validates a factor. Promote a factor to `verified` only after recording the exact table/metric, publication version/year, unit conversion, geography, system boundary and independent review.
 
 ## Scientific boundaries
 
