@@ -58,13 +58,13 @@ function Overview() {
         </Panel>
         <Panel title="Workflows">
           <ul className="divide-y divide-border text-sm">
-            {[
+            {([
               ["/database", "Browse & filter environmental factors"],
               ["/assessment", "Run a quantity × factor assessment"],
               ["/comparison", "Compare BEV vs petrol passenger car (demo)"],
               ["/scenario", "Test grid-electricity scenarios on BEV use phase"],
               ["/reports", "Review results and export CSV"],
-            ].map(([to, label]) => (
+            ] as [string, string][]).map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="flex justify-between py-2.5 text-foreground hover:text-primary">
                   {label} <span className="font-mono text-muted-foreground">→</span>
