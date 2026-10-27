@@ -27,11 +27,30 @@ describe("LCA calculation rules", () => {
   it("flags unmodelled stages as incomplete", () => {
     const a = assessVehicle([
       { stage: "vehicle_manufacturing", applicable: true, quantity: 1, activityUnit: "vehicle", factor: getFactor("F-MFG-ICE") },
+      { stage: "battery_manufacturing", applicable: false },
+      { stage: "use_phase", applicable: false },
+      { stage: "maintenance", applicable: false },
       { stage: "end_of_life", applicable: true, quantity: 1, activityUnit: "vehicle", factor: getFactor("F-EOL-RECYC") },
     ]);
     expect(a.complete).toBe(false);
     expect(a.missingStages).toEqual(["end_of_life"]);
     expect(a.modelledTotal).toBe(6500);
+  });
+  it("treats absent stage definitions as not modelled", () => {
+    const a = assessVehicle([
+      { stage: "vehicle_manufacturing", applicable: true, quantity: 1, activityUnit: "vehicle", factor: getFactor("F-MFG-ICE") },
+    ]);
+    expect(a.missingStages).toEqual(["battery_manufacturing", "use_phase", "maintenance", "end_of_life"]);
+    expect(a.complete).toBe(false);
+  });
+  it("flags duplicate lifecycle stages", () => {
+    const a = assessVehicle([
+      { stage: "vehicle_manufacturing", applicable: true, quantity: 1, activityUnit: "vehicle", factor: getFactor("F-MFG-ICE") },
+      { stage: "vehicle_manufacturing", applicable: true, quantity: 1, activityUnit: "vehicle", factor: getFactor("F-MFG-ICE") },
+    ]);
+    expect(a.errors.some((e) => e.includes("Duplicate lifecycle stage"))).toBe(true);
+    expect(a.valid).toBe(false);
+    expect(a.modelledTotal).toBeNull();
   });
   it("flags double-counted battery impacts", () => {
     const a = assessVehicle([
