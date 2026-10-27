@@ -99,11 +99,11 @@ export const STAGE_KEYS = Object.keys(STAGE_LABELS) as StageKey[];
 export interface StageInput {
   stage: StageKey;
   applicable: boolean;
-  quantity?: number;
-  activityUnit?: string;
-  factor?: Factor;
+  quantity?: number | undefined;
+  activityUnit?: string | undefined;
+  factor?: Factor | undefined;
   /** Set when a factor already embeds battery impacts. */
-  includesBattery?: boolean;
+  includesBattery?: boolean | undefined;
 }
 
 export type StageOutcome =
