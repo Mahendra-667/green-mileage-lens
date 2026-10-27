@@ -10,7 +10,7 @@ export const ILLUSTRATIVE_NOTE = "Illustrative — not real-world data";
 export const SOURCES: Source[] = [
   {
     id: "SRC-DEMO-01",
-    organisation: "GreenAuto Lens demo dataset",
+    organisation: "Green Mileage Lens demo dataset",
     title: "Illustrative material production factors",
     publicationYear: null,
     geography: "India (illustrative)",
@@ -22,7 +22,7 @@ export const SOURCES: Source[] = [
   },
   {
     id: "SRC-DEMO-02",
-    organisation: "GreenAuto Lens demo dataset",
+    organisation: "Green Mileage Lens demo dataset",
     title: "Illustrative grid electricity factor",
     publicationYear: null,
     geography: "India (illustrative)",
@@ -34,7 +34,7 @@ export const SOURCES: Source[] = [
   },
   {
     id: "SRC-DEMO-03",
-    organisation: "GreenAuto Lens demo dataset",
+    organisation: "Green Mileage Lens demo dataset",
     title: "Illustrative vehicle manufacturing and use factors",
     publicationYear: null,
     geography: "India (illustrative)",
