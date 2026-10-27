@@ -24,7 +24,7 @@ describe("CSV export", () => {
     expect(csvEscape("=SUM(A1)")).toBe('"\'=SUM(A1)"');
     expect(csvEscape("+cmd")).toBe("\"'+cmd\"");
     expect(csvEscape("@risk")).toBe('"\'@risk"');
-    expect(csvEscape("-1")).toBe('\'-1');
+    expect(csvEscape("-1")).toBe('"\'-1"');
     expect(csvEscape('He said "hi"')).toBe('"He said ""hi"""');
   });
   it("preserves source references and provenance columns", () => {
